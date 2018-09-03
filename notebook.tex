@@ -1,0 +1,924 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{MOVIE\_PREDICTIONS}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{pandas} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{n}{num\PYZus{}movies} \PY{o}{=} \PY{l+m+mi}{20}
+        \PY{n}{num\PYZus{}users} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n}{ratings}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual\PYZus{}ratings.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{k}{as} \PY{n}{inputfile}\PY{p}{:}
+            \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{inputfile}\PY{p}{:}
+                \PY{n}{li} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{line}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{   }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+                \PY{n}{ratings}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{li}\PY{p}{)}
+        \PY{n}{ratings} \PY{o}{=} \PY{n}{array}\PY{p}{(}\PY{n}{ratings}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RATINGS GIVEN BY DIFFERENT USERS FOR A MOVIE }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ratings}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{ratings}\PY{p}{,}\PY{n}{aspect}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{interpolation} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+RATINGS GIVEN BY DIFFERENT USERS FOR A MOVIE 
+
+ [[0 0 3 0 1 5 4 5 0 0]
+ [0 0 3 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 4]
+ [0 5 5 0 0 5 0 3 4 0]
+ [0 0 1 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 5 0 0]
+ [0 0 2 5 1 5 4 0 0 0]
+ [4 0 4 0 0 5 0 5 5 0]
+ [5 0 3 4 4 5 3 5 0 0]
+ [0 0 0 0 0 0 0 0 0 4]
+ [2 0 1 0 0 5 0 0 0 0]
+ [2 0 5 5 0 5 0 5 0 0]
+ [0 0 5 4 1 0 3 5 0 0]
+ [0 0 4 3 4 0 0 5 0 0]
+ [5 5 0 4 4 5 0 4 0 0]
+ [0 0 0 0 0 0 0 0 0 4]
+ [0 0 1 0 0 0 0 0 0 0]
+ [0 0 0 3 1 0 0 0 0 0]
+ [0 0 0 5 0 0 0 3 0 0]
+ [0 0 0 0 3 0 0 0 0 0]]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_0_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{did\PYZus{}rate} \PY{o}{=} \PY{p}{(}\PY{n}{ratings}\PY{o}{!=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{1}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE MOVIE WHICH HAS BEEN RATED BY A PARTICULAR USER IS MARKED A 1 IN THE MATRIX }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{did\PYZus{}rate}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+THE MOVIE WHICH HAS BEEN RATED BY A PARTICULAR USER IS MARKED A 1 IN THE MATRIX 
+
+ [[0 0 1 0 1 1 1 1 0 0]
+ [0 0 1 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 1]
+ [0 1 1 0 0 1 0 1 1 0]
+ [0 0 1 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 1 0 0]
+ [0 0 1 1 1 1 1 0 0 0]
+ [1 0 1 0 0 1 0 1 1 0]
+ [1 0 1 1 1 1 1 1 0 0]
+ [0 0 0 0 0 0 0 0 0 1]
+ [1 0 1 0 0 1 0 0 0 0]
+ [1 0 1 1 0 1 0 1 0 0]
+ [0 0 1 1 1 0 1 1 0 0]
+ [0 0 1 1 1 0 0 1 0 0]
+ [1 1 0 1 1 1 0 1 0 0]
+ [0 0 0 0 0 0 0 0 0 1]
+ [0 0 1 0 0 0 0 0 0 0]
+ [0 0 0 1 1 0 0 0 0 0]
+ [0 0 0 1 0 0 0 1 0 0]
+ [0 0 0 0 1 0 0 0 0 0]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}sams\PYZus{}ratings = zeros((num\PYZus{}movies,1))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}print(sams\PYZus{}ratings)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} sams\PYZus{}ratings[0] = 8}
+        \PY{c+c1}{\PYZsh{} sams\PYZus{}ratings[4] = 7}
+        \PY{c+c1}{\PYZsh{} sams\PYZus{}ratings[7] = 3}
+        
+        \PY{c+c1}{\PYZsh{} print(sams\PYZus{}ratings)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} ratings = append(sams\PYZus{}ratings,ratings,axis=1)}
+        \PY{c+c1}{\PYZsh{} did\PYZus{}rate = append(((sams\PYZus{}ratings!=0)*1),did\PYZus{}rate,axis=1)}
+        
+        \PY{c+c1}{\PYZsh{} print(ratings)}
+        \PY{c+c1}{\PYZsh{} print(did\PYZus{}rate)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} a = [10,20,30]}
+        \PY{c+c1}{\PYZsh{} avg = mean(a)}
+        \PY{c+c1}{\PYZsh{} print(avg)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} a = [10\PYZhy{}avg,20\PYZhy{}avg,30\PYZhy{}avg]}
+        \PY{c+c1}{\PYZsh{} print(a)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{normalize\PYZus{}ratings}\PY{p}{(}\PY{n}{ratings}\PY{p}{,}\PY{n}{did\PYZus{}rate}\PY{p}{)}\PY{p}{:}
+             \PY{n}{num\PYZus{}movies} \PY{o}{=} \PY{n}{ratings}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{c+c1}{\PYZsh{}0 means rows , 1 means columns}
+             
+             \PY{n}{ratings\PYZus{}mean} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{n}{num\PYZus{}movies}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} 
+             \PY{n}{ratings\PYZus{}norm} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{ratings}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{n}{num\PYZus{}movies}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{idx} \PY{o}{=} \PY{n}{where}\PY{p}{(}\PY{n}{did\PYZus{}rate}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{ratings\PYZus{}mean}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{mean}\PY{p}{(}\PY{n}{ratings}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{idx}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{ratings\PYZus{}norm}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{idx}\PY{p}{]} \PY{o}{=} \PY{n}{ratings}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{idx}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{ratings\PYZus{}mean}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                 
+             \PY{k}{return} \PY{n}{ratings\PYZus{}norm}\PY{p}{,}\PY{n}{ratings\PYZus{}mean}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}the columns which have a  rating are extracted out}
+         \PY{n}{i}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{idx}\PY{o}{=}\PY{n}{where}\PY{p}{(}\PY{n}{did\PYZus{}rate}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{idx}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[2]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{ratings\PYZus{}mean} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{n}{num\PYZus{}movies}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ratings\PYZus{}mean}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{mean}\PY{p}{(}\PY{n}{ratings}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{idx}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{ratings\PYZus{}mean}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{ratings\PYZus{}mean}\PY{p}{,}\PY{n}{aspect}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{interpolation} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[0.]
+ [3.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{ratings\PYZus{}norm} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{ratings}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{ratings\PYZus{}norm}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{idx}\PY{p}{]} \PY{o}{=} \PY{n}{ratings}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{idx}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{ratings\PYZus{}mean}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{ratings\PYZus{}norm}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{ratings\PYZus{}norm}\PY{p}{,}\PY{n}{aspect}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{interpolation} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{ratings}\PY{p}{,}\PY{n}{ratings\PYZus{}mean} \PY{o}{=} \PY{n}{normalize\PYZus{}ratings}\PY{p}{(}\PY{n}{ratings}\PY{p}{,}\PY{n}{did\PYZus{}rate}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEAN\PYZus{}NORMALIZED\PYZus{}RATINGS }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ratings}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{ratings}\PY{p}{,}\PY{n}{aspect}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{interpolation} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MEAN\_NORMALIZED\_RATINGS 
+
+ [[ 0.          0.         -0.6         0.         -2.6         1.4
+   0.4         1.4         0.          0.        ]
+ [ 0.          0.          0.          0.          0.          0.
+   0.          0.          0.          0.        ]
+ [ 0.          0.          0.          0.          0.          0.
+   0.          0.          0.          0.        ]
+ [ 0.          0.6         0.6         0.          0.          0.6
+   0.         -1.4        -0.4         0.        ]
+ [ 0.          0.          0.          0.          0.          0.
+   0.          0.          0.          0.        ]
+ [ 0.          0.          0.          0.          0.          0.
+   0.          0.          0.          0.        ]
+ [ 0.          0.         -1.4         1.6        -2.4         1.6
+   0.6         0.          0.          0.        ]
+ [-0.6         0.         -0.6         0.          0.          0.4
+   0.          0.4         0.4         0.        ]
+ [ 0.85714286  0.         -1.14285714 -0.14285714 -0.14285714  0.85714286
+  -1.14285714  0.85714286  0.          0.        ]
+ [ 0.          0.          0.          0.          0.          0.
+   0.          0.          0.          0.        ]
+ [-0.66666667  0.         -1.66666667  0.          0.          2.33333333
+   0.          0.          0.          0.        ]
+ [-2.4         0.          0.6         0.6         0.          0.6
+   0.          0.6         0.          0.        ]
+ [ 0.          0.          1.4         0.4        -2.6         0.
+  -0.6         1.4         0.          0.        ]
+ [ 0.          0.          0.         -1.          0.          0.
+   0.          1.          0.          0.        ]
+ [ 0.5         0.5         0.         -0.5        -0.5         0.5
+   0.         -0.5         0.          0.        ]
+ [ 0.          0.          0.          0.          0.          0.
+   0.          0.          0.          0.        ]
+ [ 0.          0.          0.          0.          0.          0.
+   0.          0.          0.          0.        ]
+ [ 0.          0.          0.          1.         -1.          0.
+   0.          0.          0.          0.        ]
+ [ 0.          0.          0.          1.          0.          0.
+   0.         -1.          0.          0.        ]
+ [ 0.          0.          0.          0.          0.          0.
+   0.          0.          0.          0.        ]]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEAN\PYZus{}RATINGS}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ratings\PYZus{}mean}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{ratings\PYZus{}mean}\PY{p}{,}\PY{n}{aspect}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{interpolation} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MEAN\_RATINGS
+
+ [[3.6       ]
+ [3.        ]
+ [4.        ]
+ [4.4       ]
+ [1.        ]
+ [5.        ]
+ [3.4       ]
+ [4.6       ]
+ [4.14285714]
+ [4.        ]
+ [2.66666667]
+ [4.4       ]
+ [3.6       ]
+ [4.        ]
+ [4.5       ]
+ [4.        ]
+ [1.        ]
+ [2.        ]
+ [4.        ]
+ [3.        ]]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{num\PYZus{}users} \PY{o}{=} \PY{n}{ratings}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{num\PYZus{}features} \PY{o}{=}\PY{l+m+mi}{3}
+         
+         \PY{n}{movie\PYZus{}features} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{n}{low}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n}{high}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{n}{num\PYZus{}movies}\PY{p}{,}\PY{n}{num\PYZus{}features}\PY{p}{)}\PY{p}{)}   \PY{c+c1}{\PYZsh{}random.randn(num\PYZus{}movies,num\PYZus{}features)}
+         \PY{n}{user\PYZus{}prefs} \PY{o}{=}  \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{n}{low}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n}{high}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{n}{num\PYZus{}users}\PY{p}{,}\PY{n}{num\PYZus{}features}\PY{p}{)}\PY{p}{)}       \PY{c+c1}{\PYZsh{}random.randn(num\PYZus{}users,num\PYZus{}features)}
+         \PY{n}{initial\PYZus{}X\PYZus{}and\PYZus{}theta} \PY{o}{=} \PY{n}{r\PYZus{}}\PY{p}{[}\PY{n}{movie\PYZus{}features}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{user\PYZus{}prefs}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MOVIE\PYZus{}FEATURES\PYZus{}X }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{movie\PYZus{}features}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{movie\PYZus{}features}\PY{p}{,}\PY{n}{aspect}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{interpolation} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{USER\PYZus{}FEATURES\PYZus{}THETA }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{user\PYZus{}prefs}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{user\PYZus{}prefs}\PY{p}{,}\PY{n}{aspect}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{interpolation} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{INITIAL MOVIE\PYZus{}FEATURES\PYZus{}X AND USER\PYZus{}FEATURES\PYZus{}THETA }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{initial\PYZus{}X\PYZus{}and\PYZus{}theta}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MOVIE\_FEATURES\_X 
+
+ [[-0.87179185  0.42011776 -0.47237219]
+ [-0.82045913 -0.87701648  0.19291235]
+ [-0.64077368  0.62326521 -0.51480604]
+ [ 0.67756563  0.82454562 -0.05024445]
+ [ 0.99620265 -0.99487922  0.1511936 ]
+ [-0.47659196  0.85880286 -0.15243254]
+ [-0.32246665 -0.44312342 -0.6935442 ]
+ [ 0.04620027 -0.26744406 -0.89751887]
+ [-0.15079994 -0.27314949  0.04676185]
+ [ 0.16667648  0.99070959 -0.6164756 ]
+ [ 0.37520763  0.64521464  0.99421231]
+ [-0.80629068  0.7624209   0.22406606]
+ [-0.83912991  0.95172734  0.66431044]
+ [-0.37009538  0.55497374 -0.53036651]
+ [-0.84071335  0.86921959  0.8970016 ]
+ [-0.39852256 -0.57018158 -0.03122122]
+ [-0.42104626  0.11833891 -0.7139274 ]
+ [ 0.19684969 -0.14545586  0.42632719]
+ [-0.12862411 -0.23855059  0.93713515]
+ [-0.2817676  -0.08981372  0.50243063]]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+USER\_FEATURES\_THETA 
+
+ [[ 9.73811371e-01  2.63401908e-01  2.97137814e-01]
+ [ 6.40050997e-01 -9.72449377e-01  6.89701880e-01]
+ [ 8.97501228e-01  6.93631094e-04  5.07546724e-01]
+ [-3.62930597e-01 -3.78521925e-01 -7.92423744e-01]
+ [ 6.41829763e-01 -6.53757133e-01 -7.16814685e-02]
+ [-1.08396159e-02  8.67734754e-01 -6.20424590e-02]
+ [ 6.22267296e-01 -5.94332906e-01  6.14453457e-01]
+ [-9.73886109e-01  1.31212790e-01  7.45933281e-01]
+ [-8.78534298e-01 -1.20590848e-01 -7.52738657e-01]
+ [-1.84877824e-01  2.87969261e-01 -9.41226012e-01]]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+INITIAL MOVIE\_FEATURES\_X AND USER\_FEATURES\_THETA 
+
+ [-8.71791853e-01 -8.20459131e-01 -6.40773685e-01  6.77565626e-01
+  9.96202651e-01 -4.76591960e-01 -3.22466654e-01  4.62002662e-02
+ -1.50799939e-01  1.66676478e-01  3.75207631e-01 -8.06290679e-01
+ -8.39129910e-01 -3.70095381e-01 -8.40713348e-01 -3.98522558e-01
+ -4.21046258e-01  1.96849695e-01 -1.28624111e-01 -2.81767598e-01
+  4.20117758e-01 -8.77016481e-01  6.23265208e-01  8.24545619e-01
+ -9.94879221e-01  8.58802863e-01 -4.43123420e-01 -2.67444057e-01
+ -2.73149490e-01  9.90709588e-01  6.45214643e-01  7.62420901e-01
+  9.51727335e-01  5.54973737e-01  8.69219587e-01 -5.70181578e-01
+  1.18338914e-01 -1.45455864e-01 -2.38550593e-01 -8.98137181e-02
+ -4.72372185e-01  1.92912353e-01 -5.14806044e-01 -5.02444506e-02
+  1.51193595e-01 -1.52432544e-01 -6.93544198e-01 -8.97518869e-01
+  4.67618464e-02 -6.16475600e-01  9.94212307e-01  2.24066063e-01
+  6.64310444e-01 -5.30366509e-01  8.97001602e-01 -3.12212222e-02
+ -7.13927400e-01  4.26327186e-01  9.37135146e-01  5.02430630e-01
+  9.73811371e-01  6.40050997e-01  8.97501228e-01 -3.62930597e-01
+  6.41829763e-01 -1.08396159e-02  6.22267296e-01 -9.73886109e-01
+ -8.78534298e-01 -1.84877824e-01  2.63401908e-01 -9.72449377e-01
+  6.93631094e-04 -3.78521925e-01 -6.53757133e-01  8.67734754e-01
+ -5.94332906e-01  1.31212790e-01 -1.20590848e-01  2.87969261e-01
+  2.97137814e-01  6.89701880e-01  5.07546724e-01 -7.92423744e-01
+ -7.16814685e-02 -6.20424590e-02  6.14453457e-01  7.45933281e-01
+ -7.52738657e-01 -9.41226012e-01]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{initial\PYZus{}X\PYZus{}and\PYZus{}theta}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} (90,)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{unroll\PYZus{}params}\PY{p}{(}\PY{n}{X\PYZus{}and\PYZus{}theta}\PY{p}{,}\PY{n}{num\PYZus{}users}\PY{p}{,}\PY{n}{num\PYZus{}movies}\PY{p}{,}\PY{n}{num\PYZus{}features}\PY{p}{)}\PY{p}{:}
+             \PY{n}{first\PYZus{}30} \PY{o}{=} \PY{n}{X\PYZus{}and\PYZus{}theta}\PY{p}{[}\PY{p}{:}\PY{n}{num\PYZus{}movies}\PY{o}{*}\PY{n}{num\PYZus{}features}\PY{p}{]}
+             \PY{n}{X} \PY{o}{=} \PY{n}{first\PYZus{}30}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{n}{num\PYZus{}features}\PY{p}{,}\PY{n}{num\PYZus{}movies}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+             \PY{n}{last\PYZus{}21} \PY{o}{=} \PY{n}{X\PYZus{}and\PYZus{}theta}\PY{p}{[}\PY{n}{num\PYZus{}movies}\PY{o}{*}\PY{n}{num\PYZus{}features}\PY{p}{:}\PY{p}{]}
+             \PY{n}{theta} \PY{o}{=} \PY{n}{last\PYZus{}21}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{num\PYZus{}features}\PY{p}{,}\PY{n}{num\PYZus{}users}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+             \PY{k}{return} \PY{n}{X}\PY{p}{,}\PY{n}{theta}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k}{def} \PY{n+nf}{calculate\PYZus{}gradient}\PY{p}{(}\PY{n}{X\PYZus{}and\PYZus{}theta}\PY{p}{,}\PY{n}{ratings}\PY{p}{,}\PY{n}{did\PYZus{}rate}\PY{p}{,}\PY{n}{num\PYZus{}users}\PY{p}{,}\PY{n}{num\PYZus{}movies}\PY{p}{,}\PY{n}{num\PYZus{}features}\PY{p}{,}\PY{n}{reg\PYZus{}param}\PY{p}{)}\PY{p}{:}
+             \PY{n}{X}\PY{p}{,}\PY{n}{theta} \PY{o}{=} \PY{n}{unroll\PYZus{}params}\PY{p}{(}\PY{n}{X\PYZus{}and\PYZus{}theta}\PY{p}{,}\PY{n}{num\PYZus{}users}\PY{p}{,}\PY{n}{num\PYZus{}movies}\PY{p}{,}\PY{n}{num\PYZus{}features}\PY{p}{)}
+             \PY{n}{difference} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{theta}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{*}\PY{n}{did\PYZus{}rate} \PY{o}{\PYZhy{}} \PY{n}{ratings}
+             \PY{n}{X\PYZus{}grad} \PY{o}{=} \PY{n}{difference}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{o}{+}\PY{n}{reg\PYZus{}param} \PY{o}{*}\PY{n}{X}
+             \PY{n}{theta\PYZus{}grad} \PY{o}{=} \PY{n}{difference}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{+}\PY{n}{reg\PYZus{}param}\PY{o}{*}\PY{n}{theta}
+             
+             \PY{k}{return} \PY{n}{r\PYZus{}}\PY{p}{[}\PY{n}{X\PYZus{}grad}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{theta\PYZus{}grad}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k}{def} \PY{n+nf}{calculate\PYZus{}cost}\PY{p}{(}\PY{n}{X\PYZus{}and\PYZus{}theta}\PY{p}{,}\PY{n}{ratings}\PY{p}{,}\PY{n}{did\PYZus{}rate}\PY{p}{,}\PY{n}{num\PYZus{}users}\PY{p}{,}\PY{n}{num\PYZus{}movies}\PY{p}{,}\PY{n}{num\PYZus{}features}\PY{p}{,}\PY{n}{reg\PYZus{}param}\PY{p}{)}\PY{p}{:}
+             \PY{n}{X}\PY{p}{,}\PY{n}{theta} \PY{o}{=} \PY{n}{unroll\PYZus{}params}\PY{p}{(}\PY{n}{X\PYZus{}and\PYZus{}theta}\PY{p}{,}\PY{n}{num\PYZus{}users}\PY{p}{,}\PY{n}{num\PYZus{}movies}\PY{p}{,}\PY{n}{num\PYZus{}features}\PY{p}{)}
+             \PY{n}{cost} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{theta}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{*}\PY{n}{did\PYZus{}rate}\PY{o}{\PYZhy{}}\PY{n}{ratings}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}
+             \PY{n}{regularization} \PY{o}{=} \PY{p}{(}\PY{n}{reg\PYZus{}param}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{theta}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{+}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{X}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{cost}\PY{o}{+}\PY{n}{regularization}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{optimize}
+         \PY{n}{reg\PYZus{}param} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{minimized\PYZus{}cost\PYZus{}and\PYZus{}optimal\PYZus{}params} \PY{o}{=} \PY{n}{optimize}\PY{o}{.}\PY{n}{fmin\PYZus{}cg}\PY{p}{(}\PY{n}{calculate\PYZus{}cost}\PY{p}{,}\PY{n}{fprime}\PY{o}{=}\PY{n}{calculate\PYZus{}gradient}\PY{p}{,}\PY{n}{x0}\PY{o}{=}\PY{n}{initial\PYZus{}X\PYZus{}and\PYZus{}theta}\PY{p}{,}
+                                                             \PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{n}{ratings}\PY{p}{,}\PY{n}{did\PYZus{}rate}\PY{p}{,}\PY{n}{num\PYZus{}users}\PY{p}{,}\PY{n}{num\PYZus{}movies}\PY{p}{,}\PY{n}{num\PYZus{}features}\PY{p}{,}\PY{n}{reg\PYZus{}param}\PY{p}{)}\PY{p}{,}
+                                                              \PY{n}{maxiter}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{disp}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{full\PYZus{}output}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Optimization terminated successfully.
+         Current function value: 34.111905
+         Iterations: 12
+         Function evaluations: 24
+         Gradient evaluations: 24
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{cost}\PY{p}{,}\PY{n}{optimal\PYZus{}movie\PYZus{}features\PYZus{}and\PYZus{}user\PYZus{}prefs} \PY{o}{=} \PY{n}{minimized\PYZus{}cost\PYZus{}and\PYZus{}optimal\PYZus{}params}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{minimized\PYZus{}cost\PYZus{}and\PYZus{}optimal\PYZus{}params}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{featurs}\PY{p}{,}\PY{n}{prefs} \PY{o}{=} \PY{n}{unroll\PYZus{}params}\PY{p}{(}\PY{n}{optimal\PYZus{}movie\PYZus{}features\PYZus{}and\PYZus{}user\PYZus{}prefs}\PY{p}{,}\PY{n}{num\PYZus{}users}\PY{p}{,}\PY{n}{num\PYZus{}movies}\PY{p}{,}\PY{n}{num\PYZus{}features}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} PREDICTING RATINGS}
+         \PY{n}{new\PYZus{}pred} \PY{o}{=} \PY{n}{featurs}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{prefs}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{+}\PY{n}{ratings\PYZus{}mean}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{user\PYZus{}prefs}\PY{p}{,}\PY{n}{aspect}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{interpolation} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} PREDICTING RATINGS FOR A USER}
+         \PY{n}{sam\PYZus{}ratings} \PY{o}{=} \PY{n}{new\PYZus{}pred}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{:}\PY{p}{]}
+         \PY{n}{sr} \PY{o}{=} \PY{n}{sam\PYZus{}ratings}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in}  \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{sr}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{b}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}0:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{sr}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{n}{sr}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{b}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RATINGS FOR SAM ARE }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sam\PYZus{}ratings}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{sam\PYZus{}ratings}\PY{p}{,}\PY{n}{aspect}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{interpolation} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,}\PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+RATINGS FOR SAM ARE 
+
+ [[3.6       ]
+ [3.        ]
+ [4.        ]
+ [4.4       ]
+ [1.        ]
+ [5.        ]
+ [3.4       ]
+ [4.6       ]
+ [4.14285714]
+ [4.        ]
+ [2.66666667]
+ [4.4       ]
+ [3.6       ]
+ [4.        ]
+ [4.5       ]
+ [4.        ]
+ [1.        ]
+ [2.        ]
+ [4.        ]
+ [3.        ]]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{movie\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Movie\PYZus{}ids.rtf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{k}{as} \PY{n}{inputfile}\PY{p}{:}
+             \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{inputfile}\PY{p}{:}
+                 \PY{n}{li} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{movie\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{li}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{movie\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{array}\PY{p}{(}\PY{n}{movie\PYZus{}list}\PY{p}{)}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{movie\PYZus{}list}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} ['1 Wonder Woman',
+          '2 Me Befor You (Romance)',
+          '3 Criminal (Action)',
+          '4 Forever My Girl (Romance)',
+          '5 Deadpool 2(Comedy)',
+          '6 Spider-Man Homecoming',
+          '7 Sausage Party (comedy)',
+          '8 The infiltrator(Action)',
+          '9 Love Simon (Romance)',
+          '10 Transformers The Last Knight',
+          '11 Blockers (Comedy)',
+          '12 21 JumpStreet(Comedy)',
+          '13 Fifty Shades freed (Romance)',
+          '14 Game Night (Comedy)',
+          '15 bad Moms (Comedy)',
+          '16 Avengers- Infinity Wars',
+          '17 The perfect match (Romance)',
+          '18 Fifty Shades Darker (Romance)',
+          '19 Overboard (Comedy)',
+          '20 The Fate of the furious']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{rats} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{sr}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{dic} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{check}\PY{o}{=}\PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{} to make sure that movie with same ratings are appended at the end of the \PYZdq{}value list\PYZdq{} for that \PYZdq{}particular rating key\PYZdq{}}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{rats}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{rats}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o+ow}{in} \PY{n}{check}\PY{p}{:}
+                 \PY{n}{dic}\PY{p}{[}\PY{n}{rats}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{movie\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{check}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rats}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{dic}\PY{p}{[}\PY{n}{rats}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{movie\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{check}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rats}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             
+         \PY{n}{keylist} \PY{o}{=} \PY{n}{dic}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}       \PY{c+c1}{\PYZsh{}These are used to}
+         \PY{n}{keylist} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{keylist}\PY{p}{)}  \PY{c+c1}{\PYZsh{}sort the keys in }
+         \PY{n}{keylist} \PY{o}{=} \PY{n}{keylist}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}    \PY{c+c1}{\PYZsh{}order of decreasing ratings}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Top recommendations for you : }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{keylist}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Recommended rating }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{k}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ for movie }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{dic}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Top recommendations for you : 
+
+Recommended rating  5.0  for movie  ['6 Spider-Man Homecoming']
+Recommended rating  4.6  for movie  ['8 The infiltrator(Action)']
+Recommended rating  4.5  for movie  ['15 bad Moms (Comedy)']
+Recommended rating  4.4  for movie  ['4 Forever My Girl (Romance)', '12 21 JumpStreet(Comedy)']
+Recommended rating  4.14  for movie  ['9 Love Simon (Romance)']
+Recommended rating  4.0  for movie  ['3 Criminal (Action)', '10 Transformers The Last Knight', '14 Game Night (Comedy)', '16 Avengers- Infinity Wars', '19 Overboard (Comedy)']
+Recommended rating  3.6  for movie  ['1 Wonder Woman', '13 Fifty Shades freed (Romance)']
+Recommended rating  3.4  for movie  ['7 Sausage Party (comedy)']
+Recommended rating  3.0  for movie  ['2 Me Befor You (Romance)', '20 The Fate of the furious']
+Recommended rating  2.67  for movie  ['11 Blockers (Comedy)']
+Recommended rating  2.0  for movie  ['18 Fifty Shades Darker (Romance)']
+Recommended rating  1.0  for movie  ['5 Deadpool 2(Comedy)', '17 The perfect match (Romance)']
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
